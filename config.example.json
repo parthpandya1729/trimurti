@@ -1,0 +1,13 @@
+{
+  "claudeBin": "claude",
+  "tokenBudget": 300000,
+  "scanModel": "haiku",
+  "deepModel": "opus",
+  "deepDiveMaxPerDay": 2,
+  "outDir": "runs",
+  "projects": [
+    { "id": "web-app",   "name": "Customer Web App", "path": "/abs/path/to/web-app",  "flagship": true },
+    { "id": "api",       "name": "Core API",         "path": "/abs/path/to/api",      "flagship": true },
+    { "id": "marketing", "name": "Marketing Site",   "path": "/abs/path/to/marketing" }
+  ]
+}

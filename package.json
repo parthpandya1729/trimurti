@@ -1,0 +1,14 @@
+{
+  "name": "trimurti",
+  "version": "0.1.0",
+  "description": "Three AI agents — Brahmā, Viṣṇu, Maheśa — that keep a portfolio of codebases healthy with a daily, budgeted, propose-only review through the lenses of creation, preservation, and renewal.",
+  "type": "commonjs",
+  "bin": { "trimurti": "src/trimurti.js" },
+  "scripts": {
+    "start": "node src/trimurti.js",
+    "dry-run": "node src/trimurti.js --dry-run"
+  },
+  "keywords": ["ai-agents", "code-health", "observability", "claude", "devops", "technical-debt", "trimurti"],
+  "license": "MIT",
+  "engines": { "node": ">=18" }
+}
