@@ -11,7 +11,7 @@ const DEITIES = {
   },
   vishnu: {
     emoji: '🛡', title: 'Viṣṇu', principle: 'the preserver — what must be sustained',
-    focus: `Identify what threatens STABILITY and should be MAINTAINED to keep the project healthy and running: outdated or vulnerable dependencies, missing security hardening, error-rate or latency risk, abnormal database growth, configuration drift, missing backups, fragile single points of failure, performance regressions. Prefer changes that protect uptime and data.`,
+    focus: `Identify what threatens STABILITY and should be MAINTAINED to keep the project healthy and running: outdated or vulnerable dependencies, missing security hardening, error-rate or latency risk, abnormal database growth, configuration drift, missing backups, fragile single points of failure, performance regressions. Prefer changes that protect uptime and data. When a project carries live runtime telemetry (an "observability" field: 24h calls, error rate, average latency, token cost), treat it as the pulse of a living system and weight it heavily — flag error-rate spikes, latency regressions, cost drift, or a service that has gone silent (zero calls despite being live). You are the preserver; this live watch is yours.`,
   },
   mahesh: {
     emoji: '🔥', title: 'Maheśa', principle: 'the dissolver — what must be released for renewal',
