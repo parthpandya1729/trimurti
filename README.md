@@ -102,6 +102,33 @@ Schedule it nightly with cron/launchd for a standing daily renewal practice.
 
 ---
 
+## The fuller framework — a go-to-market Council
+
+The Trimūrti build and sustain the **product**. Vedic cosmology also encodes the roles
+that carry a creation **outward** — populate, spread, and enrich it. The same
+role-as-agent pattern extends to a go-to-market **Council**:
+
+| Agent | Principle | Asks, of each project | Domain |
+|---|---|---|---|
+| 🗣 **Nārada** | the messenger who carries the word across all worlds — *Kalaha-priya*, who engineers the narrative, not just broadcasts it | *What's the story, the audience, the catalytic moment?* | marketing / narrative-growth |
+| 🤝 **Dakṣa** | the progenitor who populated creation through strategic alliances (his flaw: ego that excludes a key stakeholder destroys the work) | *Which alliances and deals let it spread?* | business development / sales |
+| 💰 **Lakṣmī** | where she resides, prosperity accrues; where she isn't cultivated, she departs | *Where does value accrue — and where doesn't it?* | revenue / monetization |
+
+*Reserve roles:* **Vishwakarma** (platform/tooling), **Sarasvatī** (message *quality* vs
+Nārada's *reach*), the **Rishis** (R&D / knowledge-keepers).
+
+The full arc: **source-spec (Vāc) → build (Brahmā) → tool (Vishwakarma) → codify (Rishis)
+→ populate via alliances (Dakṣa) → craft the word (Sarasvatī) → spread & catalyze (Nārada)
+→ prosperity settles (Lakṣmī)** — a complete product-and-go-to-market lifecycle.
+
+Canonical role definitions live in [`src/council-roles.js`](src/council-roles.js). The GTM
+agents only give grounded advice when fed real market signals (traffic, deals, revenue,
+workflow notes) — the same way the Trimūrti are grounded in code metrics; ungrounded, they
+produce generic strategy. See [SYNC.md](SYNC.md) for how this repo and a private
+implementation stay in step.
+
+---
+
 ## Roadmap
 
 - One-click "apply" for the safe class of Viṣṇu fixes (behind approval)
