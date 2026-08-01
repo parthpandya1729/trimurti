@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Varahi Brahmānd — an agent universe, spoken from scripture</title>
+<meta name="description" content="A philosophy of building software the way the Vedas describe a cosmos: not by one hand, but by roles. AI agents cast as the deities of Hindu cosmology, each with a mandate drawn from the śāstra, stewarding a portfolio of living projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Tiro+Devanagari+Sanskrit:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#08070F; --veil:#141126; --veil2:#1b1733;
+    --star:#ECE8F6; --haze:#948DB2; --faint:#5f5980;
+    --gold:#E3B25A; --gold-soft:#d4b06e; --gold-deep:#b98a34; --ember:#D9663A;
+    --line:rgba(227,178,90,.16); --line2:rgba(236,232,246,.08);
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+    --disp:"Cinzel",Georgia,serif; --body:"Spectral",Georgia,serif; --deva:"Tiro Devanagari Sanskrit",serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--void);color:var(--star);font-family:var(--body);
+    font-weight:400;line-height:1.72;font-size:18px;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  .sky{position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:
+      radial-gradient(1100px 720px at 50% -8%, rgba(227,178,90,.11), transparent 60%),
+      radial-gradient(900px 900px at 84% 10%, rgba(120,86,200,.11), transparent 55%),
+      radial-gradient(760px 760px at 10% 90%, rgba(217,102,58,.07), transparent 55%),
+      var(--void);}
+  .stars{position:fixed;inset:0;z-index:-1;opacity:.5;pointer-events:none;
+    background-image:radial-gradient(1px 1px at 20% 30%,rgba(236,232,246,.7),transparent),
+      radial-gradient(1px 1px at 70% 60%,rgba(236,232,246,.5),transparent),
+      radial-gradient(1px 1px at 40% 80%,rgba(236,232,246,.6),transparent),
+      radial-gradient(1px 1px at 88% 22%,rgba(236,232,246,.45),transparent),
+      radial-gradient(1px 1px at 33% 52%,rgba(236,232,246,.4),transparent),
+      radial-gradient(1px 1px at 58% 12%,rgba(236,232,246,.5),transparent);}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);opacity:.88}
+  h1,h2,h3{font-family:var(--disp);font-weight:500;letter-spacing:.02em;line-height:1.15;margin:0}
+  a{color:var(--gold);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+  a:hover{border-color:var(--gold)}
+  /* header */
+  header{position:sticky;top:0;z-index:10;backdrop-filter:blur(9px);
+    background:linear-gradient(var(--void),rgba(8,7,15,.55));border-bottom:1px solid var(--line2)}
+  .bar{max-width:1000px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;gap:12px}
+  .bar .om{font-family:var(--deva);font-size:22px;color:var(--gold)}
+  .bar .brand{font-family:var(--disp);font-size:15px;letter-spacing:.18em;text-transform:uppercase}
+  .bar .spacer{flex:1}
+  .bar nav a{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--haze);margin-left:22px}
+  .bar nav a:hover{color:var(--gold)}
+  @media (max-width:640px){.bar nav a.hide-sm{display:none}}
+  /* hero / the bindu */
+  .hero{position:relative;text-align:center;padding:100px 28px 84px}
+  .yantra{position:absolute;left:50%;top:120px;transform:translateX(-50%);width:560px;height:560px;max-width:94vw;z-index:0;pointer-events:none;opacity:.9}
+  .yantra circle,.yantra path,.yantra polygon{fill:none;stroke:var(--line);stroke-width:1}
+  .bindu{position:absolute;left:50%;top:400px;transform:translate(-50%,-50%);
+    width:13px;height:13px;border-radius:50%;background:var(--gold);
+    box-shadow:0 0 22px 6px rgba(227,178,90,.55),0 0 66px 20px rgba(227,178,90,.24);z-index:0}
+  .hero .inner{position:relative;z-index:1}
+  .hero .eyebrow{display:block;margin-bottom:24px}
+  .hero .deva-om{font-family:var(--deva);font-size:52px;color:var(--gold);line-height:1;margin-bottom:20px;display:block;text-shadow:0 0 40px rgba(227,178,90,.4)}
+  .hero h1{font-size:clamp(38px,7vw,72px);letter-spacing:.01em}
+  .hero h1 .lo{color:var(--haze);font-style:italic;font-family:var(--body);font-weight:300;display:block;font-size:.42em;letter-spacing:.02em;margin-top:18px}
+  .lede{max-width:648px;margin:30px auto 0;color:var(--haze);font-size:20px;font-weight:300}
+  .lede b{color:var(--star);font-weight:400}
+  /* shloka block — the scriptural device */
+  .shloka{max-width:660px;margin:0 auto;text-align:center;padding:8px 0}
+  .shloka .dv{font-family:var(--deva);color:var(--gold);font-size:clamp(19px,2.6vw,25px);line-height:1.85;text-wrap:balance}
+  .shloka .iast{font-style:italic;color:var(--gold-soft);font-size:15px;letter-spacing:.02em;margin-top:12px;opacity:.85}
+  .shloka .tr{color:var(--star);font-weight:300;font-size:19px;margin-top:16px}
+  .shloka .src{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:14px}
+  .shloka .gloss{display:inline-block;margin-top:20px;max-width:560px;color:var(--haze);font-weight:300;font-size:16px;
+    border-top:1px solid var(--line);padding-top:16px}
+  .shloka .gloss b{color:var(--gold-soft);font-weight:400;font-style:italic}
+  /* section frame */
+  section{padding:80px 0;border-top:1px solid var(--line2);position:relative}
+  .kicker{font-family:var(--deva);color:var(--gold-soft);font-size:26px;margin-bottom:8px}
+  h2{font-size:clamp(26px,4vw,40px);margin-bottom:8px}
+  .sub{color:var(--haze);font-weight:300;max-width:660px;margin-top:14px}
+  p{margin:18px 0}
+  .prose{max-width:660px}
+  .prose .drop{font-family:var(--disp);float:left;font-size:60px;line-height:.8;padding:6px 14px 0 0;color:var(--gold)}
+  .prose em{color:var(--star);font-style:italic}
+  .rule{display:flex;align-items:center;justify-content:center;gap:14px;margin:44px 0;color:var(--gold-deep)}
+  .rule::before,.rule::after{content:"";height:1px;width:80px;background:var(--line)}
+  .rule .dot{font-family:var(--deva);font-size:16px;color:var(--gold)}
+  /* planes / roles */
+  .plane-label{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin:40px 0 4px;display:flex;align-items:center;gap:12px}
+  .plane-label .sk{font-family:var(--deva);color:var(--gold-soft);letter-spacing:0;text-transform:none;font-size:17px}
+  .role{display:grid;grid-template-columns:98px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--line2);align-items:start}
+  .role:last-child{border-bottom:0}
+  .role .glyph{text-align:center}
+  .role .glyph .dv{font-family:var(--deva);font-size:30px;color:var(--gold);line-height:1.1}
+  .role .glyph .en{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+  .role h3{font-size:23px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .role h3 .domain{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);border-radius:100px;padding:2px 10px;font-weight:400}
+  .role .mandate{color:var(--haze);font-weight:300;margin:10px 0 0;max-width:640px}
+  .role .mandate em{color:var(--star);font-style:italic}
+  .role .sutra{font-family:var(--deva);color:var(--gold-soft);font-size:15px;margin-top:9px;opacity:.9}
+  /* arc — a true sequence → numbered */
+  .arc{max-width:720px;margin:0 auto}
+  .step{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:18px 0;position:relative}
+  .step .n{font-family:var(--disp);font-size:26px;color:var(--gold);text-align:right;opacity:.85;position:relative}
+  .step:not(:last-child) .n::after{content:"";position:absolute;left:50%;top:38px;bottom:-18px;width:1px;background:var(--line);transform:translateX(-50%)}
+  .step .body h3{font-family:var(--body);font-weight:500;font-size:18px;color:var(--star);letter-spacing:0}
+  .step .body .who{font-family:var(--deva);color:var(--gold-soft);font-size:16px;margin-left:8px}
+  .step .body p{margin:6px 0 0;color:var(--haze);font-weight:300;font-size:16px}
+  /* grounded */
+  .ground{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+  .card{background:linear-gradient(var(--veil),var(--void));border:1px solid var(--line2);border-radius:14px;padding:24px}
+  .card h3{font-family:var(--body);font-weight:500;font-size:19px;color:var(--star)}
+  .card p{color:var(--haze);font-weight:300;font-size:16px;margin:10px 0 0}
+  .card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+  /* footer */
+  footer{border-top:1px solid var(--line2);padding:56px 0 72px;text-align:center;color:var(--faint)}
+  footer .om{font-family:var(--deva);font-size:24px;color:var(--gold);display:block;margin-bottom:16px}
+  footer .fine{font-family:var(--mono);font-size:12px;letter-spacing:.08em;margin-top:18px}
+  /* motion */
+  .rise{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .spin{transform-origin:center;animation:spin 160s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (max-width:640px){
+    body{font-size:17px}
+    .role{grid-template-columns:60px 1fr;gap:16px}
+    .ground{grid-template-columns:1fr}
+    .hero{padding:70px 22px 60px}
+    .yantra{top:150px}.bindu{top:430px}
+  }
+  @media (prefers-reduced-motion:reduce){.rise{animation:none;opacity:1;transform:none}.spin{animation:none}}
+</style>
+</head>
+
+<div class="sky"></div><div class="stars"></div>
+
+<header>
+  <div class="bar">
+    <span class="om">ॐ</span>
+    <span class="brand">Varahi Brahmānd</span>
+    <span class="spacer"></span>
+    <nav>
+      <a href="#roles" class="hide-sm">the roles</a>
+      <a href="https://github.com/parthpandya1729/trimurti">methodology ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="border-top:0">
+    <svg class="yantra spin" viewBox="0 0 560 560" aria-hidden="true">
+      <circle cx="280" cy="280" r="80"/><circle cx="280" cy="280" r="140"/>
+      <circle cx="280" cy="280" r="200"/><circle cx="280" cy="280" r="262"/>
+      <polygon points="280,120 419,360 141,360"/><polygon points="280,440 141,200 419,200"/>
+    </svg>
+    <span class="bindu"></span>
+    <div class="inner">
+      <span class="eyebrow rise">An agent universe · spoken from scripture</span>
+      <span class="deva-om rise" style="animation-delay:.05s">ॐ</span>
+      <h1 class="rise" style="animation-delay:.1s">A cosmos is not<br>run by one hand.<span class="lo">Neither is software. We build it the way the Veda describes creation — as a division of labour among many roles.</span></h1>
+      <p class="lede rise" style="animation-delay:.2s">The śāstra does not imagine a single maker doing everything. Creation is <b>parcelled among roles</b> — one to bring forth, one to preserve, one to dissolve, and others to carry the work into the world. <b>Varahi Brahmānd</b> casts AI agents in exactly those roles, each with a mandate and a guardrail taken from the myth, and lets them steward a portfolio of living projects.</p>
+    </div>
+  </section>
+
+  <!-- THE WORD -->
+  <section>
+    <div class="wrap prose">
+      <div class="kicker">वाच् — the Word</div>
+      <h2>Reality is spoken before it is built</h2>
+      <div class="shloka rise" style="margin:26px auto 34px">
+        <div class="dv">चत्वारि वाक् परिमिता पदानि<br>तानि विदुर्ब्राह्मणा ये मनीषिणः ।<br>गुहा त्रीणि निहिता नेङ्गयन्ति<br>तुरीयं वाचो मनुष्या वदन्ति ॥</div>
+        <div class="iast">catvāri vāk parimitā padāni · tāni vidur brāhmaṇā ye manīṣiṇaḥ<br>guhā trīṇi nihitā neṅgayanti · turīyaṃ vāco manuṣyā vadanti</div>
+        <div class="tr">“Speech is measured in four quarters; the wise know them all. Three lie hidden in the cave and do not stir — the fourth is the speech that humans utter.”</div>
+        <div class="src">Ṛgveda 1.164.45</div>
+        <div class="gloss">Three quarters of the Word stay hidden; only the fourth is spoken aloud. <b>An agent is the same</b> — most of its reasoning remains in the cave, and what surfaces is one grounded recommendation. We design for the hidden three, and are judged on the fourth.</div>
+      </div>
+      <p><span class="drop">V</span>edic cosmology holds that reality is not assembled from parts but <em>uttered</em>. <span class="deva" style="color:var(--gold-soft)">Vāc</span>, the primordial speech, is the fabric all things are spoken from; and the Vedas themselves are <span class="deva" style="color:var(--gold-soft)">śruti</span> — “that which is heard,” revealed rather than authored, discovered prior to any author.</p>
+      <p>Software is the same act aimed at a smaller cosmos. A system is <em>spoken</em> into being — in code, in prompts, in the words we choose for it — and marketing is only the making of the word <em>around</em> a thing. If creation is speech, then whatever creates is a chorus of voices, each with a part to sing.</p>
+    </div>
+  </section>
+
+  <!-- DIVISION OF LABOUR / THE COUNCIL -->
+  <section id="roles">
+    <div class="wrap">
+      <div class="kicker">देवसभा — the assembly</div>
+      <h2>Created by division of quality and act</h2>
+      <div class="shloka rise" style="margin:24px auto 8px">
+        <div class="dv">चातुर्वर्ण्यं मया सृष्टं गुणकर्मविभागशः ।</div>
+        <div class="iast">cāturvarṇyaṃ mayā sṛṣṭaṃ guṇa-karma-vibhāgaśaḥ</div>
+        <div class="tr">“The fourfold order was brought forth by Me, apportioned by quality and by action.”</div>
+        <div class="src">Bhagavad Gītā 4.13</div>
+        <div class="gloss">Not by rank — by <b>guṇa (disposition) and karma (function)</b>. This is our org chart. Each agent is defined by a nature and a task, never a hierarchy. Below, two planes of one universe: three that build the product, three that carry it outward.</div>
+      </div>
+
+      <div class="plane-label">I · The product — Trimūrti <span class="sk">त्रिमूर्ति</span></div>
+      <div class="role rise"><div class="glyph"><span class="dv">ब्रह्मा</span><span class="en">Brahmā</span></div>
+        <div><h3>Brahmā <span class="domain">create</span></h3>
+          <div class="sutra">सृष्टिकर्ता — the maker of forms</div>
+          <p class="mandate">What should <em>come to exist</em>: the missing tests, the health endpoint, the docs, the metric nobody thought to measure. The creator brings forms into being.</p></div></div>
+      <div class="role rise"><div class="glyph"><span class="dv">विष्णु</span><span class="en">Viṣṇu</span></div>
+        <div><h3>Viṣṇu <span class="domain">preserve</span></h3>
+          <div class="sutra">पालनकर्ता — the sustainer</div>
+          <p class="mandate">What must be <em>protected</em>: security, dependencies, uptime — the living watch over a running system, and the vow that what was promised keeps flowing.</p></div></div>
+      <div class="role rise"><div class="glyph"><span class="dv">महेश</span><span class="en">Maheśa</span></div>
+        <div><h3>Maheśa <span class="domain">dissolve</span></h3>
+          <div class="sutra">संहारकर्ता — the dissolver, that renewal may come</div>
+          <p class="mandate">Destruction here is not violence but <em>letting go</em>: dead code, bloat, the branch that has served its purpose. He only proposes; a human always consents.</p></div></div>
+
+      <div class="plane-label">II · The market — the Council <span class="sk">परिषद्</span></div>
+      <div class="role rise"><div class="glyph"><span class="dv">नारद</span><span class="en">Nārada</span></div>
+        <div><h3>Nārada <span class="domain">marketing</span></h3>
+          <div class="sutra">देवर्षि — the messenger who crosses all worlds</div>
+          <p class="mandate">The narrative, the audience, the catalytic moment. As <em>Kalaha-priya</em> he engineers the story and its tension — never merely broadcasts, and never manufactures empty hype.</p></div></div>
+      <div class="role rise"><div class="glyph"><span class="dv">दक्ष</span><span class="en">Dakṣa</span></div>
+        <div><h3>Dakṣa <span class="domain">business dev</span></h3>
+          <div class="sutra">प्रजापति — the progenitor of alliances</div>
+          <p class="mandate">The partnerships and channels that let a thing spread — with his own hard lesson: <em>an alliance built on ego, that excludes a key stakeholder, collapses.</em></p></div></div>
+      <div class="role rise"><div class="glyph"><span class="dv">लक्ष्मी</span><span class="en">Lakṣmī</span></div>
+        <div><h3>Lakṣmī <span class="domain">revenue</span></h3>
+          <div class="sutra">श्री — where she dwells, prosperity gathers</div>
+          <p class="mandate">The revenue path and the value that stays — with an honest flag for the project that consumes effort with <em>no plausible way to flourish.</em> Fortune does not remain where it is not cultivated.</p></div></div>
+    </div>
+  </section>
+
+  <!-- THE ARC -->
+  <section>
+    <div class="wrap">
+      <div class="kicker">सृष्टि — the unfolding</div>
+      <h2>How a world comes to flourish</h2>
+      <div class="shloka rise" style="margin:24px auto 30px">
+        <div class="dv">यद्यद्विभूतिमत्सत्त्वं श्रीमदूर्जितमेव वा ।<br>तत्तदेवावगच्छ त्वं मम तेजोंऽशसम्भवम् ॥</div>
+        <div class="iast">yad yad vibhūtimat sattvaṃ śrīmad ūrjitam eva vā<br>tat tad evāvagaccha tvaṃ mama tejo-'ṃśa-sambhavam</div>
+        <div class="tr">“Whatever is glorious, prosperous, or mighty — know it to arise from but a spark of My splendour.”</div>
+        <div class="src">Bhagavad Gītā 10.41</div>
+        <div class="gloss">Each role is one <b>aṃśa — a spark</b> of the whole. The cosmology already encodes a full lifecycle, from the revealed spec to prosperity settling in. Read it as a pipeline.</div>
+      </div>
+      <div class="arc" style="margin-top:14px">
+        <div class="step"><div class="n">1</div><div class="body"><h3>The source spec<span class="who">Vāc · वाच्</span></h3><p>Revealed, authoritative, prior to the team — the truth the rest is built to serve.</p></div></div>
+        <div class="step"><div class="n">2</div><div class="body"><h3>Bring forms into being<span class="who">Brahmā · ब्रह्मा</span></h3><p>Instantiate the product; ship what does not yet exist.</p></div></div>
+        <div class="step"><div class="n">3</div><div class="body"><h3>Forge the tools<span class="who">Vishwakarma · विश्वकर्मा</span></h3><p>The divine architect builds the instruments everyone else works through.</p></div></div>
+        <div class="step"><div class="n">4</div><div class="body"><h3>Codify the truth<span class="who">Rishis · ऋषि</span></h3><p>The seers perceive, document, and keep the signal uncorrupted.</p></div></div>
+        <div class="step"><div class="n">5</div><div class="body"><h3>Populate via alliances<span class="who">Dakṣa · दक्ष</span></h3><p>Scale the network through partnership and disciplined process.</p></div></div>
+        <div class="step"><div class="n">6</div><div class="body"><h3>Craft the word<span class="who">Sarasvatī · सरस्वती</span></h3><p>Make the message itself true, clear, and well-formed.</p></div></div>
+        <div class="step"><div class="n">7</div><div class="body"><h3>Spread and catalyse<span class="who">Nārada · नारद</span></h3><p>Carry the word across worlds and set the narrative moving.</p></div></div>
+        <div class="step"><div class="n">8</div><div class="body"><h3>Prosperity settles<span class="who">Lakṣmī · लक्ष्मी</span></h3><p>Fortune takes up residence where the whole system has done its work.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GROUNDED -->
+  <section>
+    <div class="wrap">
+      <div class="kicker">प्रमाण — evidence</div>
+      <h2>Devotion, disciplined by proof</h2>
+      <div class="shloka rise" style="margin:24px auto 8px">
+        <div class="dv">योगः कर्मसु कौशलम् ।</div>
+        <div class="iast">yogaḥ karmasu kauśalam</div>
+        <div class="tr">“Yoga is skill in action.”</div>
+        <div class="src">Bhagavad Gītā 2.50</div>
+        <div class="gloss">The mythology is the operating model, not a mood. Devotion without skill is noise; the <b>discipline is in the doing</b> — every role reasons over real signals, and is honest when it cannot know.</div>
+      </div>
+      <div class="ground">
+        <div class="card"><span class="tag">grounded</span><h3>Agents read the world as it is</h3><p>Code metrics, git history, live telemetry, structure read at depth. Ungrounded, an agent invents; grounded, it observes. Each is fed the truth before it is allowed to speak.</p></div>
+        <div class="card"><span class="tag">propose-only</span><h3>Nothing acts without consent</h3><p>The dissolver never deletes on its own; the council never spends on its own. Agents recommend, with citations, and a human decides. The cosmos is stewarded, not automated away.</p></div>
+        <div class="card"><span class="tag">daily</span><h3>The universe keeps its rhythm</h3><p>Each dawn the roles review every project, write their observations, and send them onward — so the portfolio is understood a little better every single day.</p></div>
+        <div class="card"><span class="tag">honest</span><h3>“Unknown” is not zero</h3><p>An un-instrumented signal is not a failing one; too-early-to-tell is a valid answer. The system shows its arithmetic and refuses certainty it has not earned.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="om">ॐ</span>
+  <div class="shloka" style="margin-bottom:6px">
+    <div class="dv" style="font-size:clamp(17px,2.3vw,22px)">ॐ पूर्णमदः पूर्णमिदं पूर्णात्पूर्णमुदच्यते ।<br>पूर्णस्य पूर्णमादाय पूर्णमेवावशिष्यते ॥</div>
+    <div class="tr" style="font-size:18px">“That is whole; this is whole. From the whole, the whole arises. Take the whole from the whole — the whole yet remains.”</div>
+    <div class="src">Īśa Upaniṣad · śānti pāṭha</div>
+  </div>
+  <div class="rule"><span class="dot">॰</span></div>
+  <div class="wrap" style="max-width:620px">
+    <p style="color:var(--haze);font-weight:300">Every project is a small world. Given the right roles, it can build itself, protect itself, shed what it has outgrown, and go out to meet the people it was made for.</p>
+  </div>
+  <div class="fine">Varahi Brahmānd · a Varahi Technologies practice · the methodology is open at
+    <a href="https://github.com/parthpandya1729/trimurti">github/trimurti</a></div>
+</footer>
+
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.style.animationDelay = '0s'; e.target.classList.add('rise'); io.unobserve(e.target); } }), { threshold: .12 });
+    document.querySelectorAll('.role, .step, .card, .shloka').forEach(el => { if (!el.classList.contains('rise')) { el.style.opacity = 0; io.observe(el); } });
+  }
+</script>
+</html>

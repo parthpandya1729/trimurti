@@ -74,6 +74,101 @@ Schedule it nightly with cron/launchd for a standing daily renewal practice.
 | `deepModel` | `opus` | strong model for flagship deep-dives |
 | `deepDiveMaxPerDay` | `2` | max flagship deep-dives per run (rotate the rest) |
 | `projects[].flagship` | `false` | eligible for a deep-dive |
+| `claudeBin` | `claude` | the headless agent CLI Trimūrti shells out to |
+
+---
+
+## Setup on macOS — pointing it at your projects folder
+
+Most people keep every repo under one parent directory (`~/projects`, `~/code`, `~/dev`).
+Trimūrti is built for exactly that: give it that folder's children and it reviews the whole
+portfolio each night. Here's the full setup on a Mac.
+
+**1 — Install Node and a headless agent CLI.**
+
+```bash
+brew install node                 # Node 18+ (ships npx)
+node --version
+```
+
+Trimūrti itself does no AI — it shells out to a **headless agent CLI** that does. Pick one:
+
+| Harness | Status | Configure |
+|---|---|---|
+| **Claude Code** (recommended) | ✅ supported today | install from [claude.com/claude-code](https://claude.com/claude-code), run `claude` once to sign in, then `"claudeBin": "claude"` |
+| **`pi`** / other open-source CLIs | 🧪 experimental | point `claudeBin` at any CLI that takes a headless `-p "<prompt>"` and prints the result — e.g. `"claudeBin": "pi"` |
+| Other harnesses (OpenAI, Gemini, local Ollama models) | 🚧 coming soon | a provider adapter is on the [roadmap](#roadmap) |
+
+> Under the hood each agent is one headless call:
+> `claude -p "<prompt>" --output-format json --model <model> --permission-mode plan`.
+> Any CLI that can stand in for that shape works via `claudeBin` — that's the whole
+> integration surface.
+
+**2 — Clone Trimūrti next to your projects (or anywhere) and install nothing.**
+It's dependency-free — plain Node.
+
+```bash
+cd ~/projects
+git clone https://github.com/parthpandya1729/trimurti.git
+cd trimurti
+```
+
+**3 — Point it at your projects folder.** List the repos under your parent directory and
+mark the important ones `flagship: true` (those get the strong-model deep read):
+
+```bash
+cp config.example.json trimurti.config.json
+```
+
+```jsonc
+{
+  "claudeBin": "claude",
+  "tokenBudget": 300000,
+  "scanModel": "haiku",          // cheap model — the broad portfolio scan
+  "deepModel": "opus",           // strong model — flagship deep-dives
+  "projects": [
+    { "id": "web-app", "name": "Customer Web App", "path": "/Users/you/projects/web-app", "flagship": true },
+    { "id": "api",     "name": "Core API",         "path": "/Users/you/projects/api",     "flagship": true },
+    { "id": "site",    "name": "Marketing Site",   "path": "/Users/you/projects/site" }
+  ]
+}
+```
+
+Use **absolute paths** (launchd/cron don't inherit your shell's working directory).
+
+**4 — Dry-run, then run for real.**
+
+```bash
+node src/trimurti.js --dry-run     # shows what it collects, spends nothing
+node src/trimurti.js               # runs the review → runs/<date>.{json,md}
+```
+
+**5 — Make it a daily practice with `launchd`.** Save as
+`~/Library/LaunchAgents/com.you.trimurti.plist` and `launchctl load` it — it runs every
+day at 03:00:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.you.trimurti</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/node</string>
+    <string>/Users/you/projects/trimurti/src/trimurti.js</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/you/projects/trimurti</string>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>3</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardOutPath</key><string>/Users/you/projects/trimurti/runs/launchd.log</string>
+  <key>StandardErrorPath</key><string>/Users/you/projects/trimurti/runs/launchd.err</string>
+</dict></plist>
+```
+
+```bash
+launchctl load ~/Library/LaunchAgents/com.you.trimurti.plist
+```
+
+Read the morning report from `runs/<date>.md` (or wire the JSON into email / your
+observability stack). That's the standing daily renewal loop.
 
 ---
 
