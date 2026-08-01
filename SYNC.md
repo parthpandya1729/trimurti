@@ -10,6 +10,7 @@ them drifting, the *shared substance lives here and is consumed there*, not copi
 |---|---|---|
 | Trimūrti deity prompts | `src/prompts.js` | via git **submodule** → `require('../trimurti/src/prompts')` |
 | Council role definitions | `src/council-roles.js` | imported and wrapped with private project context |
+| Devasabhā spec (message shape, kinds, debate stances) | `src/sabha.js` | imported by the assembly's ledger + deliberation engine |
 | The methodology / framework | `README.md` | referenced, not duplicated |
 
 The private repo adds only what must stay private: the project registry, the

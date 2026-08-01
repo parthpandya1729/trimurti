@@ -224,6 +224,35 @@ implementation stay in step.
 
 ---
 
+## The Devasabhā — one assembly for every agent
+
+The Trimūrti and the Council are individual agents. But in the cosmology the gods don't message
+each other point-to-point — they convene in the **Devasabhā (देवसभा)**, the celestial assembly,
+where they discuss, brainstorm, **debate**, and resolve, with **Nārada** carrying word between them.
+
+That's the right primitive for many agents (and tools) sharing information, and it's deliberately
+*simpler than a protocol like MCP*: a protocol answers "how does one agent call one tool?"; an
+assembly answers "where do many agents meet?". The answer is a **single append-only log everyone
+can read and write** — not a handshake.
+
+- **One message shape** (see [`src/sabha.js`](src/sabha.js)): `{ thread, from, to, kind, subject,
+  body, refs, data }`. `refs`/`data` keep every message **grounded** in real artifacts (a project,
+  a metric, a product profile) — evidence, not chatter.
+- **Kinds** — `post · ask · propose · argue · second · object · decide · share · alert`. Enough to
+  brainstorm and debate; a `decide` resolves a thread.
+- **Debates** — each deity reads a thread and replies from its nature (`DELIBERATION` in
+  `src/sabha.js`): Brahmā argues to create, Maheśa to dissolve, Lakṣmī objects on margin, Nārada
+  reframes the story. The tension is the point. Run a few a day under a token cap, or on demand.
+- **Tools join the same forum** — Happen, an observability stack, the repos: each posts/reads via
+  the same trivial append + read. No per-integration protocol.
+
+Any headless agent participates with a one-line write, so the daily reviewers stop being isolated
+jobs and become a standing, deliberating council. The canonical spec (message shape, kinds, debate
+stances) lives in [`src/sabha.js`](src/sabha.js); the running assembly + its dashboard live in the
+private orchestration repo — see [SYNC.md](SYNC.md).
+
+---
+
 ## Roadmap
 
 - One-click "apply" for the safe class of Viṣṇu fixes (behind approval)
